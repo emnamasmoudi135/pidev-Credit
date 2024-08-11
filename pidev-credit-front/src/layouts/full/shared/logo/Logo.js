@@ -10,7 +10,7 @@ const LinkStyled = styled(Link)(({ theme }) => ({
   height: '100px',
   width: '100%',
   overflow: 'hidden',
-  margin: theme.spacing(2, 0),
+  margin: theme.spacing(1, 0),
 }));
 
 const ImgStyled = styled('img')(() => ({

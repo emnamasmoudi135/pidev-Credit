@@ -13,7 +13,7 @@ const Login = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        document.body.style.backgroundColor = '#DFE8F6';
+        document.body.style.backgroundColor = '#709CA7';
         return () => {
             document.body.style.backgroundColor = null; // Reset background color on cleanup
         };
@@ -65,13 +65,13 @@ const Login = () => {
                             fullWidth
                             variant="contained"
                             type="submit"
-                            style={{ backgroundColor: '#3664AD', color: '#fff', marginTop: '20px' }}
+                            style={{ backgroundColor: '#709CA7', color: '#fff', marginTop: '20px' }}
                         >
                             Login
                         </Button>
                     </form>
                     <Typography variant="body2" align="center" style={{ marginTop: '10px' }}>
-                        Don't have an Account? <span style={{ color: '#3664AD', cursor: 'pointer' }} onClick={() => navigate('/auth/signup')}>Sign Up</span>
+                        Don't have an Account? <span style={{ color: '#709CA7', cursor: 'pointer' }} onClick={() => navigate('/auth/signup')}>Sign Up</span>
                     </Typography>
                 </Box>
             </Card>
