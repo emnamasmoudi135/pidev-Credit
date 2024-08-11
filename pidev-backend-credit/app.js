@@ -5,6 +5,7 @@ const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const jobRoutes = require('./routes/jobRoutes');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
+const applicationRoutes = require('./routes/applicationRoutes');
 
 
 dotenv.config();
@@ -22,6 +23,8 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/jobs', jobRoutes);
+app.use('/api/applications', applicationRoutes);
+
 app.use(notFound);
 app.use(errorHandler);
 
