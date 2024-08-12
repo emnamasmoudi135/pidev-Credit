@@ -1,4 +1,3 @@
-// src/views/auth/Login.js
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Typography, Container, Box, Card } from '@mui/material';
 import { login } from '../../services/authService';
@@ -15,7 +14,7 @@ const Login = () => {
     useEffect(() => {
         document.body.style.backgroundColor = '#709CA7';
         return () => {
-            document.body.style.backgroundColor = null; // Reset background color on cleanup
+            document.body.style.backgroundColor = null;
         };
     }, []);
 
@@ -25,8 +24,12 @@ const Login = () => {
             const response = await login({ email, password });
             setMessage(response.message);
             setError('');
-            // Redirect to the dashboard or home page after successful login
-            navigate('/dashboard'); // Replace with your actual dashboard route
+            
+            // Storing the token and navigating to the profile page upon successful login
+            if (response.token) {
+                localStorage.setItem('authToken', response.token);
+                navigate('/profile');
+            }
         } catch (err) {
             setError(err.message);
             setMessage('');

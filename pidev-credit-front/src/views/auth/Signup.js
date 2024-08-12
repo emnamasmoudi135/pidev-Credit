@@ -110,7 +110,7 @@ const Signup = () => {
                         </Button>
                     </form>
                     <Typography variant="body2" align="center" style={{ marginTop: '10px' }}>
-                        Already have an Account? <span style={{ color: '#3664AD', cursor: 'pointer' }} onClick={() => navigate('/auth/login')}>Sign In</span>
+                        Already have an Account? <span style={{ color: '#709CA7', cursor: 'pointer' }} onClick={() => navigate('/auth/login')}>Sign In</span>
                     </Typography>
                 </Box>
             </Card>
