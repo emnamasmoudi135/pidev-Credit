@@ -23,9 +23,9 @@ const Menuitems = [
   },
   {
     id: uniqueId(),
-    title: 'Proxmox Dashboard',
+    title: 'Opportunities',
     icon: IconTypography,
-    href: '/proxmox',
+    href: '/job',
   },
   {
     id: uniqueId(),

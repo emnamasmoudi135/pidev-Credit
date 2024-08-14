@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Avatar, Typography, Box, Button, TextField, Card, CardContent, Grid, Table, TableBody, TableCell, TableRow, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import { Container, Avatar, Typography, Box, Button, TextField, Card, CardContent, Grid, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Paper } from '@mui/material';
 import { getUserProfile, updateUserProfile } from '../../services/userManagmentService';
 import { useNavigate } from 'react-router-dom';
 import defaultProfilePic from '../../assets/images/defaultProfilePic.jpg';
+import EditIcon from '@mui/icons-material/Edit';
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 
 const Profile = () => {
     const [user, setUser] = useState(null);
@@ -63,7 +65,7 @@ const Profile = () => {
     const handleProfileUpdate = async () => {
         try {
             const token = localStorage.getItem('authToken');
-            await updateUserProfile(token, editUserData);
+            await updateUserProfile(editUserData, token);
             setUser({ ...user, ...editUserData });
             setEditDialogOpen(false);
         } catch (error) {
@@ -73,58 +75,65 @@ const Profile = () => {
 
     return (
         <Container maxWidth="lg" style={{ marginTop: '20px' }}>
-            <Grid container spacing={3}>
-                <Grid item xs={12} sm={4}>
-                    <Card>
-                        <CardContent style={{ textAlign: 'center' }}>
+            <Paper elevation={3} style={{ padding: '20px', marginBottom: '20px' }}>
+                <Grid container spacing={3}>
+                    <Grid item xs={12} sm={4}>
+                        <Box style={{ textAlign: 'center' }}>
                             <Avatar
                                 alt="Profile Picture"
                                 src={defaultProfilePic}
                                 sx={{ width: 150, height: 150, margin: 'auto' }}
                             />
+                            <IconButton
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                                style={{ marginTop: '-30px', marginLeft: '120px' }}
+                            >
+                                <AddAPhotoIcon />
+                            </IconButton>
                             <Typography variant="h5" style={{ marginTop: '10px' }}>
                                 {user?.firstname} {user?.lastname}
                             </Typography>
                             <Typography variant="body2" color="textSecondary">
                                 {user?.email}
                             </Typography>
-                            <Table>
-                                <TableBody>
-                                    <TableRow>
-                                        <TableCell variant="head">First Name</TableCell>
-                                        <TableCell>{user?.firstname}</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell variant="head">Last Name</TableCell>
-                                        <TableCell>{user?.lastname}</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell variant="head">Email</TableCell>
-                                        <TableCell>{user?.email}</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell variant="head">Phone</TableCell>
-                                        <TableCell>{user?.phone || 'N/A'}</TableCell>
-                                    </TableRow>
-                                </TableBody>
-                            </Table>
                             <Button
                                 variant="contained"
-                                color="primary"
-                                style={{ marginTop: '15px' }}
+                                style={{
+                                    backgroundColor: '#709CA7',
+                                    color: '#FFFFFF',
+                                    marginTop: '15px'
+                                }}
+                                startIcon={<EditIcon />}
                                 onClick={handleEditClick}
                             >
                                 Edit Profile
                             </Button>
-                        </CardContent>
-                    </Card>
-                </Grid>
-                <Grid item xs={12} sm={8}>
-                    <Card>
-                        <CardContent>
-                            <Typography variant="h6" gutterBottom>
-                                What's on your mind?
+                        </Box>
+                    </Grid>
+                    <Grid item xs={12} sm={8}>
+                        <Typography variant="h6" gutterBottom>
+                            About
+                        </Typography>
+                        <Paper elevation={1} style={{ padding: '15px', marginBottom: '20px' }}>
+                            <Typography variant="body1">
+                                First Name: {user?.firstname}
                             </Typography>
+                            <Typography variant="body1">
+                                Last Name: {user?.lastname}
+                            </Typography>
+                            <Typography variant="body1">
+                                Email: {user?.email}
+                            </Typography>
+                            <Typography variant="body1">
+                                Phone: {user?.phone || 'N/A'}
+                            </Typography>
+                        </Paper>
+                        <Typography variant="h6" gutterBottom>
+                            What's on your mind?
+                        </Typography>
+                        <Paper elevation={1} style={{ padding: '15px', marginBottom: '20px' }}>
                             <TextField
                                 fullWidth
                                 multiline
@@ -137,30 +146,30 @@ const Profile = () => {
                             <Button
                                 variant="contained"
                                 color="primary"
-                                style={{ marginTop: '10px' }}
+                                style={{
+                                    backgroundColor: '#709CA7',
+                                    color: '#FFFFFF',
+                                    marginTop: '15px'
+                                }}
                                 onClick={handlePostSubmit}
                             >
                                 Post
                             </Button>
-                        </CardContent>
-                    </Card>
-                    <Box mt={3}>
+                        </Paper>
                         <Typography variant="h6" gutterBottom>
                             Recent Posts
                         </Typography>
-                        <Card style={{ marginBottom: '15px' }}>
-                            <CardContent>
-                                <Typography variant="body1">
-                                    User post content goes here...
-                                </Typography>
-                                <Typography variant="caption" color="textSecondary">
-                                    2 hours ago
-                                </Typography>
-                            </CardContent>
-                        </Card>
-                    </Box>
+                        <Paper elevation={1} style={{ padding: '15px', marginBottom: '15px' }}>
+                            <Typography variant="body1">
+                                User post content goes here...
+                            </Typography>
+                            <Typography variant="caption" color="textSecondary">
+                                2 hours ago
+                            </Typography>
+                        </Paper>
+                    </Grid>
                 </Grid>
-            </Grid>
+            </Paper>
 
             {/* Edit Profile Dialog */}
             <Dialog open={editDialogOpen} onClose={handleDialogClose}>
@@ -205,10 +214,19 @@ const Profile = () => {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleDialogClose} color="secondary">
+                    <Button onClick={handleDialogClose}  style={{
+                        backgroundColor: '#709CA7',
+                        color: '#FFFFFF',
+                    }} 
+                    color="secondary">
                         Cancel
                     </Button>
-                    <Button onClick={handleProfileUpdate} color="primary">
+                    <Button onClick={handleProfileUpdate} 
+                    style={{
+                        backgroundColor: '#709CA7',
+                        color: '#FFFFFF',
+                    }} 
+                    color="primary">
                         Save
                     </Button>
                 </DialogActions>

@@ -11,7 +11,7 @@ const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')))
 const Signup = Loadable(lazy(() => import('../views/auth/Signup')));
 const Login = Loadable(lazy(() => import('../views/auth/Login')));
 const UserManagement = Loadable(lazy(() => import('../views/userManagment/Profile')));
-const Profile = Loadable(lazy(() => import('../layouts/full/header/Profile')));
+const Job = Loadable(lazy(() => import('../views/job/Job')));
 
 
 
@@ -21,8 +21,8 @@ const Router = [
     element: <FullLayout />,
     children: [
       { path: '/', element: <Navigate to="/dashboard" /> },
-      { path: '/profileee', element: <UserManagement /> },
-      { path: '/profile', element: <Profile /> },
+      { path: '/profile', element: <UserManagement /> },
+      { path: '/job', element: <Job /> },
 
       { path: '*', element: <Navigate to="/auth/404" /> },
     ],
