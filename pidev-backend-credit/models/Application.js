@@ -21,8 +21,14 @@ const applicationSchema = new mongoose.Schema({
     enum: ['pending', 'reviewed', 'accepted', 'rejected'],
     default: 'pending',
   },
+  cvPath: {
+    type: String,
+    required: true,
+  },
 });
 
 const Application = mongoose.model('Application', applicationSchema);
 
 module.exports = Application;
+
+

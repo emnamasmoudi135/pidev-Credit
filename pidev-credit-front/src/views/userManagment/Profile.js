@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Avatar, Typography, Box, Button, TextField, Card, CardContent, Grid, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Paper } from '@mui/material';
+import { Container, Avatar, Typography, Box, Button, TextField, Card, CardContent, Grid, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Paper, Divider } from '@mui/material';
 import { getUserProfile, updateUserProfile } from '../../services/userManagmentService';
 import { useNavigate } from 'react-router-dom';
 import defaultProfilePic from '../../assets/images/defaultProfilePic.jpg';
 import EditIcon from '@mui/icons-material/Edit';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import WorkIcon from '@mui/icons-material/Work';
+import SchoolIcon from '@mui/icons-material/School';
+import SkillIcon from '@mui/icons-material/Star';
 
 const Profile = () => {
     const [user, setUser] = useState(null);
-    const [postContent, setPostContent] = useState('');
     const [editDialogOpen, setEditDialogOpen] = useState(false);
     const [editUserData, setEditUserData] = useState({
         firstname: '',
         lastname: '',
         email: '',
-        phone: ''
+        phone: '',
     });
     const navigate = useNavigate();
 
@@ -31,7 +33,10 @@ const Profile = () => {
                         firstname: userProfile.firstname,
                         lastname: userProfile.lastname,
                         email: userProfile.email,
-                        phone: userProfile.phone || ''
+                        phone: userProfile.phone || '',
+                        skills: userProfile.skills || '',
+                        experience: userProfile.experience || '',
+                        education: userProfile.education || ''
                     });
                 } catch (error) {
                     console.error('Error fetching user profile:', error);
@@ -41,11 +46,6 @@ const Profile = () => {
         };
         fetchUserProfile();
     }, [navigate]);
-
-    const handlePostSubmit = () => {
-        console.log('Post content:', postContent);
-        setPostContent('');
-    };
 
     const handleEditClick = () => {
         setEditDialogOpen(true);
@@ -114,8 +114,34 @@ const Profile = () => {
                     </Grid>
                     <Grid item xs={12} sm={8}>
                         <Typography variant="h6" gutterBottom>
+                            Professional Information
+                        </Typography>
+                        <Divider />
+                        <Paper elevation={1} style={{ padding: '15px', marginBottom: '20px' }}>
+                            <Box display="flex" alignItems="center">
+                                <SkillIcon color="primary" style={{ marginRight: '10px' }} />
+                                <Typography variant="body1">
+                                    Skills: {user?.skills || 'Add your skills'}
+                                </Typography>
+                            </Box>
+                            <Box display="flex" alignItems="center" marginTop="15px">
+                                <WorkIcon color="primary" style={{ marginRight: '10px' }} />
+                                <Typography variant="body1">
+                                    Experience: {user?.experience || 'Add your work experience'}
+                                </Typography>
+                            </Box>
+                            <Box display="flex" alignItems="center" marginTop="15px">
+                                <SchoolIcon color="primary" style={{ marginRight: '10px' }} />
+                                <Typography variant="body1">
+                                    Education: {user?.education || 'Add your educational background'}
+                                </Typography>
+                            </Box>
+                        </Paper>
+
+                        <Typography variant="h6" gutterBottom>
                             About
                         </Typography>
+                        <Divider />
                         <Paper elevation={1} style={{ padding: '15px', marginBottom: '20px' }}>
                             <Typography variant="body1">
                                 First Name: {user?.firstname}
@@ -130,35 +156,11 @@ const Profile = () => {
                                 Phone: {user?.phone || 'N/A'}
                             </Typography>
                         </Paper>
-                        <Typography variant="h6" gutterBottom>
-                            What's on your mind?
-                        </Typography>
-                        <Paper elevation={1} style={{ padding: '15px', marginBottom: '20px' }}>
-                            <TextField
-                                fullWidth
-                                multiline
-                                rows={4}
-                                variant="outlined"
-                                placeholder="Share your thoughts..."
-                                value={postContent}
-                                onChange={(e) => setPostContent(e.target.value)}
-                            />
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                style={{
-                                    backgroundColor: '#709CA7',
-                                    color: '#FFFFFF',
-                                    marginTop: '15px'
-                                }}
-                                onClick={handlePostSubmit}
-                            >
-                                Post
-                            </Button>
-                        </Paper>
+
                         <Typography variant="h6" gutterBottom>
                             Recent Posts
                         </Typography>
+                        <Divider />
                         <Paper elevation={1} style={{ padding: '15px', marginBottom: '15px' }}>
                             <Typography variant="body1">
                                 User post content goes here...
@@ -212,21 +214,13 @@ const Profile = () => {
                         value={editUserData.phone}
                         onChange={handleInputChange}
                     />
+            
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleDialogClose}  style={{
-                        backgroundColor: '#709CA7',
-                        color: '#FFFFFF',
-                    }} 
-                    color="secondary">
+                    <Button onClick={handleDialogClose} style={{ backgroundColor: '#709CA7', color: '#FFFFFF' }} color="secondary">
                         Cancel
                     </Button>
-                    <Button onClick={handleProfileUpdate} 
-                    style={{
-                        backgroundColor: '#709CA7',
-                        color: '#FFFFFF',
-                    }} 
-                    color="primary">
+                    <Button onClick={handleProfileUpdate} style={{ backgroundColor: '#709CA7', color: '#FFFFFF' }} color="primary">
                         Save
                     </Button>
                 </DialogActions>

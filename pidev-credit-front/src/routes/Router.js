@@ -12,7 +12,10 @@ const Signup = Loadable(lazy(() => import('../views/auth/Signup')));
 const Login = Loadable(lazy(() => import('../views/auth/Login')));
 const UserManagement = Loadable(lazy(() => import('../views/userManagment/Profile')));
 const Job = Loadable(lazy(() => import('../views/job/Job')));
-
+const Applicant = Loadable(lazy(() => import('../views/Application/ApplicationList.js')));  
+const AdminDashboard = Loadable(lazy(() => import('../views/userManagment/adminDashboard.js')));  
+const ApplyJobForm = Loadable(lazy(() => import('../views/Application/ApplyJobForm.js')));  
+const GetUserApplications = Loadable(lazy(() => import('../views/Application/GetUserApplications.js')));  
 
 
 const Router = [
@@ -23,6 +26,10 @@ const Router = [
       { path: '/', element: <Navigate to="/dashboard" /> },
       { path: '/profile', element: <UserManagement /> },
       { path: '/job', element: <Job /> },
+      { path: '/applicant', element: <Applicant /> },  // New Applicant Route
+      { path: '/adminDashboard', element: <AdminDashboard /> },  
+      { path: '/apply', element: <ApplyJobForm /> },  
+      { path: '/listApplication', element: <GetUserApplications /> },  
 
       { path: '*', element: <Navigate to="/auth/404" /> },
     ],
@@ -35,7 +42,7 @@ const Router = [
       { path: '/auth/login', element: <Login /> },
 
       
-      { path: '*', element: <Navigate to="/auth/404" /> },
+      { path: '*', element: <Navigate to="/auth/signup" /> },
     ],
   },
 ];

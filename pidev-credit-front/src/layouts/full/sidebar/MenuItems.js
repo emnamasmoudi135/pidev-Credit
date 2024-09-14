@@ -29,9 +29,9 @@ const Menuitems = [
   },
   {
     id: uniqueId(),
-    title: 'Prometheus Dashboard',
+    title: 'Profile',
     icon: IconTypography,
-    href: '/prometheus',
+    href: '/profile',
   },
   // Ajoutez les éléments suivants conditionnellement
   ...(userRole === 'admin' ? [
@@ -58,9 +58,9 @@ const Menuitems = [
   },
   {
     id: uniqueId(),
-    title: 'Ansible Management',
+    title: 'adminDashboard ',
     icon: IconAperture,
-    href: '/ansible',
+    href: '/adminDashboard',
   },
     {
       navlabel: true,
@@ -68,9 +68,9 @@ const Menuitems = [
     },
     {
       id: uniqueId(),
-      title: 'Terraform Management',
+      title: 'Applicant Management',
       icon: IconAperture,
-      href: '/terraform',
+      href: '/applicant',
     },
   
 ];

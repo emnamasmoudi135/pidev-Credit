@@ -22,7 +22,7 @@ const registerUser = async (req, res) => {
       email,
       password,
       phone,
-      role
+      role,
     });
 
     await user.save();
@@ -49,15 +49,19 @@ const authUser = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (user && (await bcrypt.compare(password, user.password))) {
-      res.json({
-        _id: user._id,
-        firstname: user.firstname,
-        lastname: user.lastname,
-        email: user.email,
-        phone: user.phone,
-        role: user.role,
-        token: generateToken(user._id),
-      });
+      if (user.approved) {
+        res.json({
+          _id: user._id,
+          firstname: user.firstname,
+          lastname: user.lastname,
+          email: user.email,
+          phone: user.phone,
+          role: user.role,
+          token: generateToken(user._id),
+        });
+      } else {
+        res.status(403).json({ message: 'User not approved yet' });
+      }
     } else {
       res.status(401).json({ message: 'Invalid email or password' });
     }

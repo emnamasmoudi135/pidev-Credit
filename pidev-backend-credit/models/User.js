@@ -24,6 +24,14 @@ const userSchema = new mongoose.Schema({
     enum: ['user', 'admin'],
     default: 'user',
   },
+  banned: {
+      type: Boolean,
+      default: false,
+    },
+    approved: {
+      type: Boolean,
+      default: false,
+    },
   phone: {
     type: String,
     required: true,
